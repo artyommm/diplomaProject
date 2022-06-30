@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Уведомления</title>
+
+    <link rel="stylesheet" href="{% static 'static_files/css/main.css' %}">
+
+</head>
+
+<body>
+    {% include "information_pages/header.html" %}
+    {% block content %}
+    <h1>Уведомления</h1>
+
+    {% if user.is_authenticated and not user.is_staff %}
+    {% for notification in notifications_list %}
+    <div class="notification">
+        <h3>{{notification.header}}</h3>
+        <p>{{notification.date_time}}</p>
+        <p>{{notification.text}}</p>
+    </div>
+    <hr width="100%">
+
+    {%endfor%}
+
+    {%elif user.is_authenticated and user.is_staff%}
+
+    {% for notification in notifications_list %}
+    <div class="notification">
+        <h3>{{notification.header}}</h3>
+        <p>{{notification.date_time}}</p>
+        <p>{{notification.text}}</p>
+    </div>
+    <hr width="100%">
+    {%endfor%}
+
+
+    {%endif%}
+    {% endblock %}
+</body>
+
+</html>

@@ -1,0 +1,78 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Обращения призывников</title>
+
+    <link rel="stylesheet" href="{% static 'static_files/css/main.css' %}">
+
+</head>
+
+<body>
+    {% include "information_pages/header.html" %}
+    {% block content %}
+    <h1>Обращения призывников</h1>
+
+    {% if user.is_authenticated and not user.is_staff %}
+
+    <a href="/main/">Как Вы тут оказались?</a>
+
+    {%elif user.is_authenticated and user.is_staff%}
+
+    <div class="answer_on_message">
+        {% if id_message %}
+        Ответ на обращение №{{message_for_answer.pk}}
+        <h3>{{message_for_answer.header}}</h3> 
+        <p>{{message_for_answer.date_time}}</p>
+        <p><u>От</u> <i>{{message_for_answer.addresser.surname}} {{message_for_answer.addresser.name}} {{message_for_answer.addresser.patronymic}}</i></p>
+        <p><u>Текст обращения:</u> {{message_for_answer.text}}</p>
+
+        <form action="." method="post">
+            <input type="text" name="id" value="{{id_message}}" hidden />
+            {{ form.as_p }}
+            {% csrf_token %}
+            <p><input type="submit" value="Создать ответ"></p>
+        </form>
+        {%endif%}
+    </div>
+
+    {% if not id_message %}
+
+
+    {% for message in messages %}
+    <div class="list_of_messages">
+        <form action="." method="GET">
+            {% csrf_token %}
+            <input type="text" name="id" value="{{message.pk}}" hidden />
+            <h3>{{message.header}} </h3>
+            <p>{{message.date_time}}</p>
+            <p><u>От</u> <i>{{message.addresser.surname}} {{message.addresser.name}}
+                    {{message.addresser.patronymic}}</i></p>
+            <p><u>Текст обращения:</u> {{message.text}}</p>
+
+            <input type="submit" value="Ответить">
+
+        </form>
+    </div>
+    <hr width="100%">
+
+    {%endfor%}
+
+
+
+    {%endif%}
+
+
+    {% if not messages %}
+    <div style="font-weight: bold; text-align: center; font-size: 20px;">Пока тут пусто</div>
+    {%endif%}
+
+    {%endif%}
+    {% endblock %}
+</body>
+
+</html>

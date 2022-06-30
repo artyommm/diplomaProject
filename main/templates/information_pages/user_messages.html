@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мои обращения</title>
+
+    <link rel="stylesheet" href="{% static 'static_files/css/main.css' %}">
+</head>
+
+<body>
+    {% include "information_pages/header.html" %}
+    {% block content %}
+    <h1>Обращения</h1>
+    {% if user.is_authenticated and not user.is_staff %}
+
+    {% for message in messages %}
+    <div class="user_messages">
+        <h4>Обращение №{{message.pk}}</h4>
+        <p><u>Заголовок:</u> {{message.header}}</p> 
+        <p><u>Текст:</u> {{message.text}}</p> 
+
+        {% if message.is_checked %}
+        <p><u>Ответ на обращение:</u> {{message.answer_message.answer_text}}</p>
+        <p><u>Кто ответил:</u>{{message.answer_message.respondent.surname}} 
+        {{message.answer_message.respondent.name}} 
+        {{message.answer_message.respondent.patronymic}}</p>
+        
+        <p><u>Должность:</u> {{message.answer_message.respondent.post}}</p>
+        {% endif %}
+    </div>
+
+    <hr width="100%">
+    {%endfor%}
+
+    {% if not messages %}
+    <div style="font-weight: bold; text-align: center; font-size: 20px;">Пока тут пусто</div>
+    {%endif%}
+
+
+    {%endif%}
+    {% endblock %}
+</body>
+
+</html>

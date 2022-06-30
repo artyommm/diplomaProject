@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Добавление уведомления</title>
+    <link rel="stylesheet" href="{% static 'static_files/css/main.css' %}">
+</head>
+
+<body>
+    {% include "add_pages/header.html" %}
+    {% block content %}
+    <h1>Форма добавления военного комиссариата</h1>
+
+    {% if user.is_authenticated and not user.is_staff %}
+
+    <a href="/main/">Как Вы тут оказались?</a>
+
+    {%elif user.is_authenticated and user.is_staff%}
+    <div class="add_recr_form">
+        <form action="." method="post">
+            {{ form.as_p }}
+            {% csrf_token %}
+            <p><input type="submit" value="Добавить"></p>
+        </form>
+    </div>
+
+
+    {%endif%}
+    {% endblock %}
+</body>
+
+</html>

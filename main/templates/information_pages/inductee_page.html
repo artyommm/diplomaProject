@@ -1,0 +1,104 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Страница призывника</title>
+
+    <link rel="stylesheet" href="{% static 'static_files/css/main.css' %}">
+
+</head>
+
+<body>
+    {% include "information_pages/header.html" %}
+    {% block content %}
+    <h1>Страница призывника</h1>
+    {{valid_or_not}}
+    {% if user.is_authenticated and not user.is_staff %}
+
+    <a href="/main/">Как Вы тут оказались?</a>
+
+    {%elif user.is_authenticated and user.is_staff%}
+
+    {{get_req}}
+    <form action="." method="GET">
+        {% csrf_token %}
+
+        Фильтры:
+        Фамилия:
+        <select name='surname_filter'>
+            <option value="None">Без фильтра</option>
+            {%for surname in surnames%}
+            <option value="{{surname}}">{{surname}}</option>
+            {%endfor%}
+        </select>
+
+        Город:
+        <select name='city_filter'>
+            <option value="None">Без фильтра</option>
+            {%for city in cities%}
+            <option value="{{city.pk}}">{{city}}</option>
+            {%endfor%}
+        </select>
+
+        <input type="submit" value="Отфильтровать">
+        <br><br>
+
+        {% if surname_filter and surname_filter != 'None' or city_filter and city_filter != 'None' %}
+        <p>Установлены следующие фильтры:</p>
+        {%if surname_filter and surname_filter != 'None'%}
+        <p>Фамилия: {{surname_filter}}</p>
+        {%endif%}
+        {%if city_filter and city_filter != 'None'%}
+        <p>Город: {{city_filter}}</p>
+        {%endif%}
+        {%endif%}
+
+
+        {{form}}
+        <br>
+        <input type="submit" value="Открыть страницу призывника">
+
+    </form>
+
+    {% if inductee != None %}
+    <div class="inductee_inf">
+        <p style="font-size: 25px; font-weight: bold;">Данные призывника</p>
+
+        <p>{{inductee.surname}} {{inductee.name}} {{inductee.patronymic}}</p> 
+        <p>Возраст: {{inductee.calculate_age}}</p>
+        <p>Телефон: {{inductee.phone}}</p>
+        <p>Категория годности: {{inductee.military_category}}</p>
+        <p>Военный статус: {{inductee.military_status}}</p>
+
+        {% if military_id != Null %}
+        <p>Военный билет № {{military_id.pk}}</p>
+        <p>Кому выдан: {{military_id.to_whom}}</p>
+        <p>Кем выдан: {{military_id.issued_by}}</p>
+        <p>Когда выдан: {{military_id.when_issued.date}}</p>
+
+        {%endif%}
+        {%endif%}
+
+    </div>
+    {%endif%}
+
+    {% if change_form != None %}
+    <br>
+    <div class="change_form">
+        <p style="font-size: 25px; font-weight: bold;">Форма изменения данных призывника</p>
+        <form action="" method="POST">
+            {% csrf_token %}
+            {{change_form.as_ul}}
+            <p><input type="submit" value="Изменить данные призывника"></p>
+        </form>
+
+    </div>
+    {%endif%}
+    {% endblock %}
+</body>
+
+</html>

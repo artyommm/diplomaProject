@@ -1,0 +1,59 @@
+
+.centred_sign_in{
+    position: fixed; /* or absolute */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -120%)
+}
+
+.signin {
+	height: 90px;
+	width: 100%;
+	border-radius: 8px;
+    justify-content:center;
+    align-items:center;
+    text-align: center;
+}
+
+p{
+    text-align: center;
+}
+
+.signin input{
+    margin: 0;
+    position:inherit;
+    
+}
+
+.signin input:first-of-type{
+	border-top-right-radius: 8px;
+	border-top-left-radius: 8px;
+}
+.signin input:last-of-type{
+	border-bottom-right-radius: 8px;
+	border-bottom-left-radius: 8px;
+}
+
+.signin  input[type="text"], .signin  input[type="password"], .signin input[type="submit"]{
+	background: rgb(28, 30, 33);
+	box-shadow: inset -100px -100px 0 rgb(196, 197, 199); /*Prevent yellow autofill color*/
+	color: rgb(52, 56, 61);
+}
+
+.signin  input[type="text"], .signin  input[type="password"]{
+	
+	display: block;
+	width: 280px;
+	height: 45px;
+	border: 0;
+	outline: 0;
+	top: -2px;
+	padding: 0 0 0 0px;
+	font-weight: 700;
+	text-align: center;
+
+}
+.signin  input[type="text"]:focus, .signin  input[type="password"]:focus{
+	color: rgb(0, 0, 0);
+}
+

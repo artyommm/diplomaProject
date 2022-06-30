@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Авторизация</title>
+    <link rel="stylesheet" href="{% static 'static_files/css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'static_files/css/sign_in.css' %}">
+</head>
+
+<body>
+    {% if user.is_authenticated and user.is_staff %}
+    {% include "information_pages/header.html" %}
+    <p>Вы уже авторизованы как {{user.responsible_person.surname}} {{user.responsible_person.name}}</p>
+    {% elif user.is_authenticated and not user.is_staff%}
+    {% include "information_pages/header.html" %}
+    <p>Вы уже авторизованы как {{user.inductee.surname}} {{user.inductee.name}}</p>
+    {% else %}
+    {% block content %}
+    <div class="centred_sign_in">
+        <h1>Авторизация</h1>
+        <p>Заполните следующую форму:</p>
+        <div class="signin">
+            <div>
+                <form action="." method="post">
+                    {{ form.as_p }}
+                    {% if error_message != Null %}
+                    <div>{{error_message}}</div>
+                    {% endif %}
+                    {% csrf_token %}
+                    <p><input type="submit" value="Войти"></p>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    {% endblock %}
+    {%endif%}
+</body>
+
+</html>

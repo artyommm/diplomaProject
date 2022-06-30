@@ -1,0 +1,275 @@
+body {
+    margin: 0;
+    background: rgb(211, 205, 205);
+}
+
+tr td{
+    text-align: center;
+}
+
+h1{
+    text-align: center;
+}
+
+h2{
+    text-align: center;
+}
+
+div {
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+div.user_info{
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    
+    width: 100%;
+
+
+}
+
+div.user_info p{
+    margin: 2px 0px 2px 7px;
+    font-size: 20px;
+}
+
+div.staff_links{
+    border-bottom: 1px solid black;
+}
+
+div.user_links{
+    border-bottom: 1px solid black;
+}
+
+
+li{
+    list-style-type: none;
+}
+
+div.user_links li{
+    list-style-type: none;
+    margin: 5px 0px 2px 7px;
+    font-size: 20px;
+}
+
+div.staff_links li{
+    list-style-type: none;
+    margin: 5px 0px 2px 7px;
+    font-size: 20px;
+}
+
+nav{
+    margin: auto;
+    border: 0;
+    width:  80%;
+    height: 20px;
+    text-align: center;
+}
+
+.staff_links ul{
+    margin-left: 0;
+    padding-left: 0; 
+}
+
+.staff_links a{
+    color: rgb(0, 0, 0);
+    text-align: center;
+    padding: 1px 5px;
+    font-size: 20px;
+}
+
+.staff_links a:hover{
+    border-bottom: 2px solid #000;
+}
+
+.user_links li{
+    list-style-type: none;
+    margin-top: 5px;
+}
+
+.user_links ul{
+    margin-left: 0;
+    padding-left: 0; 
+}
+
+.user_links a{
+    color: rgb(0, 0, 0);
+    text-align: center;
+    padding: 1px 5px;
+    font-size: 20px;
+}
+
+.user_links a:hover{
+    border-bottom: 2px solid #000;
+}
+
+.topnav{
+    font-size: 14px;
+    margin-top: 0px;
+}
+
+
+.topnav a, span{
+    color: rgb(0, 0, 0);
+    text-align: center;
+    padding: 14px 16px;
+    font-size: 20px;
+}
+
+.topnav a:hover{
+    border-bottom: 2px solid #000;
+}
+
+.username span{
+    font-weight: bold;
+}
+
+div.inductee_inf{
+    margin: 5px 0px 2px 7px;
+    font-size: 20px;
+}
+
+div.change_form{
+    margin: 5px 0px 2px 7px;
+    font-size: 20px;
+}
+
+div.add_recr_form{
+    margin: 5px 0px 2px 7px;
+    font-size: 20px;
+}
+
+div.notification{
+    margin: 5px 0px 2px 7px;
+    font-size: 20px;
+    width:  80%;
+}
+
+div.notification h3{
+    margin: 2px 0px 2px 7px;
+}
+
+div.notification p{
+    margin: 2px 0px 2px 7px;
+    font-size: 20px;
+}
+
+div.add_notification{
+    margin: 5px 0px 2px 7px;
+    font-size: 20px;
+}
+
+div.add_military_id{
+    margin: 5px 0px 2px 7px;
+    font-size: 20px;
+}
+
+div.create_subpoena{
+    margin: 5px 0px 2px 7px;
+    font-size: 20px;
+}
+
+div.list_of_messages{
+    margin: 5px 0px 2px 7px;
+    font-size: 20px;
+    width: 90%;
+}
+
+div.list_of_messages p{
+    margin: 2px 0px 2px 7px;
+    font-size: 20px;
+}
+
+div.list_of_messages h3{
+    margin: 2px 0px 2px 7px;
+}
+
+div.answer_on_message{
+    margin: 5px 0px 2px 7px;
+    font-size: 20px;
+    width: 90%;
+}
+
+div.answer_on_message p{
+    margin: 2px 0px 2px 0px;
+    font-size: 20px;
+}
+
+div.answer_on_message h3{
+    margin: 2px 0px 2px 0px;
+}
+
+div.subpoena_text{
+    margin: 5px 0px 2px 7px;
+    font-size: 20px;
+    width: 90%;
+}
+
+div.subpoena_text p{
+    margin: 2px 0px 2px 7px;
+    font-size: 20px;
+}
+
+div.subpoena_text h4{
+    margin: 2px 0px 2px 7px;
+}
+
+div.user_messages{
+    margin: 5px 0px 2px 7px;
+    font-size: 20px;
+    width: 90%;
+}
+
+div.user_messages p{
+    margin: 2px 0px 2px 7px;
+    font-size: 20px;
+}
+
+div.user_messages h4{
+    margin: 2px 0px 2px 7px;
+}
+
+div.add_message{
+    margin: 2px 0px 2px 7px;
+    font-size: 20px;
+}
+
+div.inductee_inf{
+    margin: 5px 0px 2px 7px;
+    font-size: 20px;
+    width: 90%;
+}
+
+div.inductee_inf p{
+    margin: 2px 0px 2px 7px;
+    font-size: 20px;
+}
+
+div.inductee_inf h4{
+    margin: 2px 0px 2px 7px;
+}
+
+div.change_form{
+    margin: 5px 0px 2px 7px;
+    font-size: 20px;
+    width: 90%;
+}
+
+div.change_form p{
+    margin: 2px 0px 2px 7px;
+    font-size: 20px;
+}
+
+div.change_form h4{
+    margin: 2px 0px 2px 7px;
+}

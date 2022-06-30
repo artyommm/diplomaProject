@@ -1,0 +1,162 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список призывников</title>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static 'static_files/css/main.css' %}">
+</head>
+
+<body>
+    {% include "information_pages/header.html" %}
+    {% block content %}
+    <h1>Список призывников</h1>
+
+    {% if user.is_authenticated and user.is_staff %}
+
+    <div class="filter_form">
+
+        <form action="" method="GET">
+            {{form}}
+            <br>
+            Фильтры
+
+            Фамилия:
+            <select name='surname_filter'>
+                <option value="None">Без фильтра</option>
+                {%for surname in surnames%}
+                <option value="{{surname}}">{{surname}}</option>
+                {%endfor%}
+            </select>
+
+            Город:
+            <select name='city_filter'>
+                <option value="None">Без фильтра</option>
+                {%for city in cities%}
+                <option value="{{city.pk}}">{{city}}</option>
+                {%endfor%}
+            </select>
+
+            <input type="submit" value="Отфильтровать">
+
+
+            {% if surname_filter and surname_filter != 'None' or city_filter and city_filter != 'None' %}
+            <p>Установлены следующие фильтры:</p>
+            {%if surname_filter and surname_filter != 'None'%}
+            <p>Фамилия: {{surname_filter}}</p>
+            {%endif%}
+            {%if city_filter and city_filter != 'None'%}
+            <p>Город: {{city_filter}}</p>
+            {%endif%}
+            {%endif%}
+        </form>
+
+    </div>
+
+
+    <br>
+
+
+    {%if ind_list%}
+    <table border="0" width="70%" cellpadding="2">
+        <tr>
+            <th>Фамилия</th>
+            <th>Имя</th>
+            <th>Отчество</th>
+            <th>Дата рождения</th>
+            <th>Возраст</th>
+            <th>Статус</th>
+        </tr>
+
+        {% for ind in ind_list %}
+        <tr>
+            <td>{{ind.surname}}</td>
+            <td>{{ind.name}}</td>
+            <td>{{ind.patronymic}}</td>
+            <td>{{ind.birthday}}</td>
+            <td>{{ind.calculate_age}}</td>
+            <td>{{ind.military_status}}</td>
+
+        </tr>
+        {%endfor%}
+    </table>
+    {%endif%}
+
+
+
+
+    <br>
+    <h3>Весенний призыв</h3>
+
+    {%if ind_list%}
+    <table border="0" width="70%" cellpadding="2">
+        <tr>
+            <th>Фамилия</th>
+            <th>Имя</th>
+            <th>Отчество</th>
+            <th>Дата рождения</th>
+            <th>Возраст</th>
+            <th>Статус</th>
+        </tr>
+
+        {% for ind in ind_list %}
+        {% if ind.spring_call and ind.military_status == 'Поставлен на учёт' %}
+        <tr>
+            <td>{{ind.surname}}</td>
+            <td>{{ind.name}}</td>
+            <td>{{ind.patronymic}}</td>
+            <td>{{ind.birthday}}</td>
+            <td>{{ind.calculate_age}}</td>
+            <td>{{ind.military_status}}</td>
+
+        </tr>
+        {%endif%}
+        {%endfor%}
+    </table>
+    {%endif%}
+
+    <br>
+    <h3>Осенний призыв</h3>
+
+    {%if ind_list%}
+    <table border="0" width="70%" cellpadding="2">
+        <tr>
+            <th>Фамилия</th>
+            <th>Имя</th>
+            <th>Отчество</th>
+            <th>Дата рождения</th>
+            <th>Возраст</th>
+            <th>Статус</th>
+        </tr>
+
+        {% for ind in ind_list %}
+        {% if ind.autumn_call and not ind.spring_call and ind.military_status == 'Поставлен на учёт' %}
+        <tr>
+            <td>{{ind.surname}}</td>
+            <td>{{ind.name}}</td>
+            <td>{{ind.patronymic}}</td>
+            <td>{{ind.birthday}}</td>
+            <td>{{ind.calculate_age}}</td>
+            <td>{{ind.military_status}}</td>
+
+        </tr>
+        {%endif%}
+        {%endfor%}
+    </table>
+    {%endif%}
+
+    {%else%}
+    <a href="/main/">Как Вы тут оказались?</a>
+    {%endif%}
+    {% endblock %}
+
+
+</body>
+
+</html>

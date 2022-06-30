@@ -1,0 +1,33 @@
+<div>
+
+    {% if user.is_authenticated and not user.is_staff %}
+
+    <nav>
+        <div class="topnav" id="myTopnav">
+            <span id="top">Привет, {{user.inductee.name}} {{user.inductee.surname}}</span>
+            <a href="/main/lk/" id="top">В личный кабинет</a>
+            <a href="/main/logout/" id="top">Выход</a>
+        </div>
+    </nav>
+
+    {%elif user.is_authenticated and user.is_staff%}
+
+
+    <nav>
+        <div class="topnav" id="myTopnav">
+            <span>Привет, {{user.responsible_person.name}} {{user.responsible_person.surname}}</span>
+            <a href="/main/lk/">В личный кабинет</a>
+            <a href="/main/logout/">Выход</a>
+        </div>
+    </nav>
+    {% else %}
+
+    <nav>
+        <div class="topnav" id="myTopnav">
+            <a href="/main/sign_in/">Вход</a>
+            <a href="/main/sign_up/">Регистрация</a>
+        </div>
+    </nav>
+    {%endif%}
+
+</div>

@@ -1,0 +1,90 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Создание повестки</title>
+    <link rel="stylesheet" href="{% static 'static_files/css/main.css' %}">
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <!-- XDSoft DateTimePicker -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css"
+        integrity="sha256-DOS9W6NR+NFe1fUhEE0PGKY/fubbUCnOfTje2JMDw3Y=" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"
+        integrity="sha256-FEqEelWI3WouFOo2VWP/uJfs1y8KJ++FLh2Lbqc8SJk=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    {% include "add_pages/header.html" %}
+    {% block content %}
+    <h1>Форма создания повестки</h1>
+
+    {% if user.is_authenticated and not user.is_staff %}
+
+    <a href="/main/">Как Вы тут оказались?</a>
+
+    {%elif user.is_authenticated and user.is_staff%}
+
+    <div class="filter_form">
+        <form action="" method="get">
+            Фильтры
+
+            Фамилия:
+            <select name='surname_filter'>
+                <option value="None">Без фильтра</option>
+                {%for surname in surnames%}
+                <option value="{{surname}}">{{surname}}</option>
+                {%endfor%}
+            </select>
+
+            Город:
+            <select name='city_filter'>
+                <option value="None">Без фильтра</option>
+                {%for city in cities%}
+                <option value="{{city.pk}}">{{city}}</option>
+                {%endfor%}
+            </select>
+
+            <input type="submit" value="Отфильтровать">
+
+            {% if surname_filter and surname_filter != 'None' or city_filter and city_filter != 'None' %}
+            <p>Установлены следующие фильтры:</p>
+            {%if surname_filter and surname_filter != 'None'%}
+            <p>Фамилия: {{surname_filter}}</p>
+            {%endif%}
+            {%if city_filter and city_filter != 'None'%}
+            <p>Город: {{city_filter}}</p>
+            {%endif%}
+            {%endif%}
+        </form>
+    </div>
+
+    <div class="create_subpoena">
+        <form action="." method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            
+            <p><input type="submit" value="Создать повестку"></p>
+        </form>
+    </div>
+
+
+    {%endif%}
+    {% endblock %}
+    <script>
+        $(function () {
+            $("#id_when_to_come").datetimepicker({
+                format: 'd.m.Y H:i',
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,80 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Личный кабинет пользователя</title>
+    <link rel="stylesheet" href="{% static 'static_files/css/main.css' %}">
+
+</head>
+
+<body>
+    {% include "user_lk/header.html" %}
+    {% block content %}
+    <h1>Личный кабинет пользователя</h1>
+
+    {% if user.is_authenticated and not user.is_staff %}
+    <div class="user_info">
+        <b><p>Данные пользователя</p></b>
+        <p>ФИО: {{user.inductee.surname}} {{user.inductee.name}} {{user.inductee.patronymic}}</p>
+        <p>Возраст: {{user.inductee.calculate_age}}</p>
+        <p>Телефон: {{user.inductee.phone}}</p>
+        <p>Город: {{user.inductee.city}}</p>
+        <p>Категория годности: {{user.inductee.military_category}}</p>
+        <p>Военный статус: {{user.inductee.military_status}}</p>
+
+        {% if military_id != Null %}
+        <p>Военный билет № {{military_id.pk}}</p>
+        <p>Кому выдан: {{military_id.to_whom}}</p>
+        <p>Кем выдан: {{military_id.issued_by}}</p>
+        <p>Когда выдан: {{military_id.when_issued.date}}</p>
+        {% endif %}
+    </div>
+
+    <div class="user_links">
+        <ul>
+            <li><a href="/main/notifications_list/">Уведомления</a></li>
+            <li><a href="/main/subpoenas/">Мои повестки</a></li>
+            <li><a href="/main/messages/">Мои обращения</a></li>
+            <li><a href="/main/create_message/">Обратная связь</a></li>
+            <li><a href="/main/change_data/">Изменить данные</a></li>
+        </ul>
+    </div>
+
+    {%elif user.is_authenticated and user.is_staff%}
+    <div class="user_info">
+        <b><p>Данные пользователя</p></b>
+        <p>ФИО: {{user.responsible_person.surname}} {{user.responsible_person.name}}
+            {{user.responsible_person.patronymic}}
+        </p>
+        <p>Должность: {{user.responsible_person.post}}</p>
+    </div>
+
+
+    <div class="staff_links">
+        <ul>
+            <li><a href="/main/inductee_list/">Список призывников</a></li>
+            <li><a href="/main/inductee_page/">Просмотр и редактирование данных призывников</a></li>
+            <li><a href="/main/add_recruiting_office/">Добавить военный комиссариат</a></li>
+            <li><a href="/main/notifications_list/">Уведомления</a></li>
+            <li><a href="/main/add_notification/">Добавить уведомление</a></li>
+            <li><a href="/main/add_military_id/">Сформировать военный билет</a></li>
+            <li><a href="/main/create_subpoena/">Создать повестку</a></li>
+            <li><a href="/main/ind_messages/">Обращения призывников</a></li>
+        </ul>
+    </div>
+
+
+
+
+
+
+
+    {%endif%}
+    {% endblock %}
+</body>
+
+</html>
